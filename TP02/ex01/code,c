@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+float ** create_m(int n){
+	float **A;
+	A=(float **)malloc(n*sizeof(float*));
+	for (int i=0;i<n ;i++)
+		A[i]=(float *)malloc(n*sizeof(float));
+	int i;
+	int j;
+	for (i=0;i<n ;i++){
+		for (j=0;j<n ;j++){
+			scanf("%f",&A[i][j]);
+		}
+	}
+	return A;
+}
+void **print(float **A,int n ){
+	int i;
+	int j;
+	for (i=0;i<n ;i++){
+		for (j=0;j<n ;j++){
+			printf("%f\t",A[i][j]);
+		}
+	}
+}
+
+float **sum_m(float **A,float **B,int n){
+	float **C;
+	C=(float **)malloc(n*sizeof(float*));
+	for (int i=0;i<n ;i++)
+		C[i]=(float *)malloc(n*sizeof(float));
+	int i;
+	int j;
+	for (i=0;i<n ;i++){
+		for (j=0;j<n ;j++){
+			C[i][j]=A[i][j] + B[i][j];
+		}
+	}
+	return C;
+} 
+float **mult_m(float **A,float **B,int n){
+	float **C;
+	C=(float **)malloc(n*sizeof(float*));
+	for (int i=0;i<n ;i++)
+		C[i]=(float *)malloc(n*sizeof(float));
+	int i;
+	int j;
+	for (i=0;i<n ;i++){
+		for (j=0;j<n ;j++){
+			C[i][j]=0;
+			for (int k=0;k<n ;k++)
+				 C[i][j] += A[i][k] * B[k][j];
+		}
+	}
+	return C;
+}
+float **trans_m(float **A, int n ){
+	float **C;
+	C=(float **)malloc(n*sizeof(float*));
+	for (int i=0;i<n ;i++)
+		C[i]=(float *)malloc(n*sizeof(float));
+	int i ;
+	int j;
+	
+	for (i=1;i<n ;i++){
+		for (j=0;j<n ;i++){
+			C[j][i]=A[i][j];
+		}
+	}
+	return C;
+}
+float ** dia_m(float **A,int n){
+	float **D;
+	D=(float **)malloc(2*sizeof(float*));
+	for (int i=0;i<n ;i++)
+		D[i]=(float *)malloc(n*sizeof(float));	
+	for (i=1;i<n ;i++){
+		for (j=0;j<n ;i++){
+			if (i=j)
+				D[i][j]=A[i][j];
+			D[i][n-1-i]=A[i][n-1-i];
+		}
+	}
+	return D;
+}
+int main(){
+	float **A=NULL;
+	A=create_m(2);
+	float **B=NULL;
+	B=create_m (2);
+	float **C=NULL;
+	C=sum_m(A,B,2);
+	print(C,2);
+	float **D=NULL;
+	D=mult_m(A,B,2);
+	print(D,2);
+	
+	return 0;
+}
